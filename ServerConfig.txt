@@ -1,0 +1,23 @@
+//If the values of the variables are not set their default values will be used.
+
+
+
+//The sampling size of the Buffer rate window.
+
+number_of_buffer_rates = 30;
+
+//The sampling time in seconds between each buffer rate recording.
+
+time_between_buffer_rates = 1;
+
+//The time between the current playtime and the current buffer time in seconds, above which the video will switch to a higher bitrate file if there is one.
+
+switch_up_time = 60;
+
+//The time between the current playtime and the current buffer time in seconds, below which the video will switch to a lower bitrate file if there is one.
+
+switch_down_time = 10;
+
+
+
+//If you would like to add more server config files keep the same format as above and then add the variable to the global variables and set that global variable in the handleConfigresponse() method in client_fnc.js
