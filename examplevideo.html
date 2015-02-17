@@ -13,18 +13,22 @@
 </head> 	 	
 
 <body onload="init()">
- <!-- <div id="MyEdit">
-
-<a href="http://www.w3schools.com/html/#MyEdit">Link text</a>
-</div>-->
+ <div id="test">
+<video id="MyEdit" video width="500" height="500" controls="controls" src=></video>
 
 
-<video id="MyEdit" video width="500" height="500" controls="controls" src=""></video>
-
+</div>
+<a id="Display" onclick ="myFunction()" ></a>
+<!--<p id="demo" onclick="myFunction()">Click me to change my HTML content (innerHTML).</p>-->
+<!--<video id="MyEdit" video width="500" height="500" controls="controls" src=></video>-->
+ 
 <!--<a href="www.toBeChanged.com" id="MyEdit">To Website</a>-->
   <script>
-
-    function reqListener () {
+   $("#test").hide();
+   function myFunction (){
+   $("#test").show();
+   }
+	function reqListener () {
       console.log(this.responseText);
     }
 
@@ -34,10 +38,10 @@
         //The actual data is found on this.responseText
       // alert(this.responseText); //Will alert: 42
 		console.log(this.responseText);
-		document.getElementById("MyEdit").innerHTML = this.responseText;
-		document.getElementById("MyEdit").src = "mixtape.mkv";
+		document.getElementById("MyEdit").src = this.responseText;
+		document.getElementById("Display").innerHTML = this.responseText;
     };
-    oReq.open("get", "get-data.php", true);
+    oReq.open("get", "Server_fnc.php", true);
     //                               ^ Don't block the rest of the execution.
     //                                 Don't wait until the request finishes to 
     //                                 continue.

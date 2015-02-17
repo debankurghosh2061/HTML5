@@ -4,7 +4,7 @@
 ini_set('max_execution_time', 10000); //300 seconds = 5 minutes
 
 $videodir = "videos/"; //video folder directory including the "/" i.e. "videos/"
-
+//echo "mixtape.mkv"; 
 if ($handle = opendir('.')) { // open the current directory
 
 	//initialise variables
@@ -26,7 +26,8 @@ if ($handle = opendir('.')) { // open the current directory
 			}
 		}
     }
-	
+	echo chop($mkv,";");
+	//echo $mkv;
 	//if the video folder is not in the directory then create it
 	if (strpos($folders, substr($videodir, 0, strlen($videodir)-1)) === false) {
 		mkdir($videodir, 0755);
