@@ -12,6 +12,82 @@ if ($handle = opendir('.')) { // open the current directory
 	$mkv = "";
 	$directorystring = "";
 	
+	
+	function get_server_load() {
+    
+        if (stristr(PHP_OS, 'win')) {
+        
+            $wmi = new COM("Winmgmts://");
+            $server = $wmi->execquery("SELECT LoadPercentage FROM Win32_Processor");
+            
+            $cpu_num = 0;
+            $load_total = 0;
+            
+            foreach($server as $cpu){
+                $cpu_num++;
+                $load_total += $cpu->loadpercentage;
+            }
+            
+            $load = round($load_total/$cpu_num);
+            
+        } else {
+        
+            $sys_load = sys_getloadavg();
+            $load = $sys_load[0];
+        
+        }
+        //$drain= "help";
+		//echo $drain;
+        echo $load;
+    
+    }   
+		get_server_load();
+	/*function getServerLoad($windows = false){
+    $os=strtolower(PHP_OS);
+    if(strpos($os, 'win') === false){
+        if(file_exists('/proc/loadavg')){
+            $load = file_get_contents('/proc/loadavg');
+            $load = explode(' ', $load, 1);
+            $load = $load[0];
+        }elseif(function_exists('shell_exec')){
+            $load = explode(' ', `uptime`);
+            $load = $load[count($load)-1];
+        }else{
+            return false;
+        }
+
+        if(function_exists('shell_exec'))
+            $cpu_count = shell_exec('cat /proc/cpuinfo | grep processor | wc -l');        
+
+        return array('load'=>$load, 'procs'=>$cpu_count);
+    }elseif($windows){
+        if(class_exists('COM')){
+            $wmi=new COM('WinMgmts:\\\\.');
+            $cpus=$wmi->InstancesOf('Win32_Processor');
+            $load=0;
+            $cpu_count=0;
+            if(version_compare('4.50.0', PHP_VERSION) == 1){
+                while($cpu = $cpus->Next()){
+                    $load += $cpu->LoadPercentage;
+                    $cpu_count++;
+                }
+            }else{
+                foreach($cpus as $cpu){
+                    $load += $cpu->LoadPercentage;
+                    $cpu_count++;
+                }
+            }
+            
+			$sload = array('load'=>$load, 'procs'=>$cpu_count);
+			echo $sload[0];
+        }
+        return false;
+    }
+    return false;
+}*/
+	//$cars = array("Volvo", "BMW", "Toyota");
+	//echo $cars[0];
+	
 	//while the directory still has a file or folder sort them into folders mkv files and other.
     while (false !== ($entry = readdir($handle))) {
 		if (filetype($entry) == 'dir'){ // if it is a dir then add it to folders
@@ -27,7 +103,7 @@ if ($handle = opendir('.')) { // open the current directory
 		}
     }
 	echo chop($mkv,";");
-	//echo $mkv;
+	
 	//if the video folder is not in the directory then create it
 	if (strpos($folders, substr($videodir, 0, strlen($videodir)-1)) === false) {
 		mkdir($videodir, 0755);

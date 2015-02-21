@@ -14,15 +14,17 @@
 
 <body onload="init()">
  <div id="test">
-<video id="MyEdit" video width="500" height="500" controls="controls" src=></video>
+<video id="MyEdit" video width="500" height="500" controls="controls" src=""></video>
 
 
 </div>
 <a id="Display" onclick ="myFunction()" ></a>
 <!--<p id="demo" onclick="myFunction()">Click me to change my HTML content (innerHTML).</p>-->
-<!--<video id="MyEdit" video width="500" height="500" controls="controls" src=></video>-->
+<!--<video id="MyEdit" video width="500" height="500" controls="controls" src=""></video>-->
  
-<!--<a href="www.toBeChanged.com" id="MyEdit">To Website</a>-->
+ <p>Your age is <?php echo $drain ?>.</p>
+
+ 
   <script>
    $("#test").hide();
    function myFunction (){
@@ -38,6 +40,7 @@
         //The actual data is found on this.responseText
       // alert(this.responseText); //Will alert: 42
 		console.log(this.responseText);
+		//console.log($sload[0]);
 		document.getElementById("MyEdit").src = this.responseText;
 		document.getElementById("Display").innerHTML = this.responseText;
     };
