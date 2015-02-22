@@ -15,22 +15,18 @@
 <body onload="init()">
  <div id="test">
 <video id="MyEdit" video width="500" height="500" controls="controls" src=""></video>
-
-
 </div>
+
 <a id="Display" onclick ="myFunction()" ></a>
 <!--<p id="demo" onclick="myFunction()">Click me to change my HTML content (innerHTML).</p>-->
 <!--<video id="MyEdit" video width="500" height="500" controls="controls" src=""></video>-->
  
- <p>Your age is <?php echo $drain ?>.</p>
-
- 
-  <script>
+<script>
    $("#test").hide();
    function myFunction (){
    $("#test").show();
    }
-	function reqListener () {
+	/*function reqListener () {
       console.log(this.responseText);
     }
 
@@ -48,8 +44,22 @@
     //                               ^ Don't block the rest of the execution.
     //                                 Don't wait until the request finishes to 
     //                                 continue.
-    oReq.send();
+    oReq.send();*/
 
+	$.ajax({
+      url:"Server_fnc.php",
+	  //dataType: "json",
+      complete: function (response) {
+	  console.log(response);
+	  var par = JSON.parse(response.responseText);
+	  console.log(par[0]);
+          $("#Display").html(response.responseText);
+		  document.getElementById("MyEdit").src = response.responseText;
+		  console.log(response);
+      },
+	
+	});
+	
     </script>
 	
 <p>

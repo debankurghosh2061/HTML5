@@ -4,7 +4,8 @@
 ini_set('max_execution_time', 10000); //300 seconds = 5 minutes
 
 $videodir = "videos/"; //video folder directory including the "/" i.e. "videos/"
-//echo "mixtape.mkv"; 
+
+
 if ($handle = opendir('.')) { // open the current directory
 
 	//initialise variables
@@ -36,12 +37,12 @@ if ($handle = opendir('.')) { // open the current directory
             $load = $sys_load[0];
         
         }
-        //$drain= "help";
-		//echo $drain;
-        echo $load;
+        
+        return $load;
     
     }   
-		get_server_load();
+		$temp = get_server_load();
+		
 	/*function getServerLoad($windows = false){
     $os=strtolower(PHP_OS);
     if(strpos($os, 'win') === false){
@@ -102,7 +103,10 @@ if ($handle = opendir('.')) { // open the current directory
 			}
 		}
     }
-	echo chop($mkv,";");
+	$temp2=chop($mkv,";");
+	
+	$arr = array($temp, $temp2);
+	echo json_encode($arr);
 	
 	//if the video folder is not in the directory then create it
 	if (strpos($folders, substr($videodir, 0, strlen($videodir)-1)) === false) {

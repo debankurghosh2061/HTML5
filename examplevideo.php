@@ -1,4 +1,4 @@
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Frameset//EN" "http://www.w3.org/TR/html4/frameset.dtd">
+<!--!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Frameset//EN" "http://www.w3.org/TR/html4/frameset.dtd">-->
 <html>
 
 <head>
@@ -13,9 +13,27 @@
 </head> 	 	
 
 <body onload="init()">
-  <script>
+ <div id="test">
+<video id="MyEdit" video width="500" height="500" controls="controls" src=""></video>
+</div>
 
-    function reqListener () {
+<!--<a id="Display" onclick ="myFunction()" ></a>-->
+<!--<p id="demo" onclick="myFunction()">Click me to change my HTML content (innerHTML).</p>-->
+<!--<video id="MyEdit" video width="500" height="500" controls="controls" src=""></video>-->
+ 
+ <?php 
+ include "Server_fnc.php";
+ $dance= get_server_load();
+ echo $dance;
+
+ ?>
+
+  <!--<script>
+   $("#test").hide();
+   function myFunction (){
+   $("#test").show();
+   }
+	function reqListener () {
       console.log(this.responseText);
     }
 
@@ -23,16 +41,21 @@
     oReq.onload = function() {
         //This is where you handle what to do with the response.
         //The actual data is found on this.responseText
-        alert(this.responseText); //Will alert: 42
+      // alert(this.responseText); //Will alert: 42
+		console.log(this.responseText);
+		//console.log($sload[0]);
+		document.getElementById("MyEdit").src = this.responseText;
+		document.getElementById("Display").innerHTML = this.responseText;
     };
-	console.log(this.responseText);
-    oReq.open("get", "get-data.php", true);
+    oReq.open("get", "Server_fnc.php", true);
     //                               ^ Don't block the rest of the execution.
     //                                 Don't wait until the request finishes to 
     //                                 continue.
     oReq.send();
 
-    </script>
-<video width="500" height="500" controls="controls" src="mixtape.mkv"></video> 
+    </script>-->
+	
+<p>
+<!-- <video width="500" height="500" controls="controls" src="mixtape.mkv"></video> -->
 </body>
 </html>
