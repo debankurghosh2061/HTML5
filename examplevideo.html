@@ -14,7 +14,7 @@
 
 <body onload="init()">
  <div id="test">
-<video id="MyEdit" video width="500" height="500" controls="controls" src=""></video>
+<video id="MyEdit" video width="500" height="500" controls="controls" src=></video>
 </div>
 
 <a id="Display" onclick ="myFunction()" ></a>
@@ -52,10 +52,10 @@
       complete: function (response) {
 	  console.log(response);
 	  var par = JSON.parse(response.responseText);
-	  console.log(par[0]);
-          $("#Display").html(response.responseText);
-		  document.getElementById("MyEdit").src = response.responseText;
-		  console.log(response);
+	  console.log(par[1]);
+          $("#Display").html(par[1]);
+		  document.getElementById("MyEdit").src = par[1];
+		  console.log(par);
       },
 	
 	});

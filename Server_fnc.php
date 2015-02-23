@@ -43,6 +43,22 @@ if ($handle = opendir('.')) { // open the current directory
     }   
 		$temp = get_server_load();
 		
+		//connection to mysql database and query the information. 
+		
+		$link = mysqli_connect('localhost','root'); 
+			if (!$link) { 
+			die('Could not connect to MySQL: ' . mysql_error()); 
+				} 
+				echo 'Connection OK'; mysqli_close($link); 
+		
+		
+		
+		
+		
+		
+		
+		
+		
 	/*function getServerLoad($windows = false){
     $os=strtolower(PHP_OS);
     if(strpos($os, 'win') === false){
