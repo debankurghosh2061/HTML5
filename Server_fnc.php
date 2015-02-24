@@ -45,19 +45,54 @@ if ($handle = opendir('.')) { // open the current directory
 		
 		//connection to mysql database and query the information. 
 		
-		$link = mysqli_connect('localhost','root'); 
-			if (!$link) { 
+	$link = mysqli_connect('mydbinstance.crk8jaubwnsf.eu-west-1.rds.amazonaws.com', 'awsuser', 'mypassword', 'mydb', 3306);
+		if (!$link) { 
 			die('Could not connect to MySQL: ' . mysql_error()); 
 				} 
-				echo 'Connection OK'; mysqli_close($link); 
-		
-		
-		
-		
-		
-		
-		
-		
+					//echo 'Connection OK'; 
+					//mysqli_close($link); 
+					
+					$sql = "CREATE TABLE MyGuests (
+					id INT(6) UNSIGNED AUTO_INCREMENT PRIMARY KEY, 
+					firstname VARCHAR(30) NOT NULL,
+					lastname VARCHAR(30) NOT NULL,
+					email VARCHAR(50),
+					reg_date TIMESTAMP
+					)";
+					$table = 'MyGuests';
+					$sql = "INSERT INTO MyGuests (firstname, lastname, email)
+					VALUES ('John', 'Doe', 'john@example.com')";
+					
+					$sql = "INSERT INTO MyGuests (firstname, lastname, email)
+					VALUES ('bib', 'dylan', 'john@example.com')";
+					
+					if ($link->query($sql) === TRUE) {
+    echo "New record created successfully";
+} else {
+    echo "Error: " . $sql . "<br>" . $link->error;
+}
+				$dance = "SELECT id, firstname, lastname FROM MyGuests";
+				$result = $link->query($dance);
+
+			if ($result->num_rows > 0) {
+    // output data of each row
+    while($row = $result->fetch_assoc()) {
+        echo "id: " . $row["id"]. " - Name: " . $row["firstname"]. " " . $row["lastname"]. "<br>";
+    }
+} else {
+    echo "0 results";
+}
+$link->close();
+					
+
+
+/*if ($link->query($sql) === TRUE) {
+    echo "Table MyGuests created successfully";
+} else {
+    echo "Error creating table: " . $link->error;
+}
+
+$link->close();*/
 		
 	/*function getServerLoad($windows = false){
     $os=strtolower(PHP_OS);
