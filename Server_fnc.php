@@ -49,50 +49,81 @@ if ($handle = opendir('.')) { // open the current directory
 		if (!$link) { 
 			die('Could not connect to MySQL: ' . mysql_error()); 
 				} 
+					
+					//$sql = "SHOW TABLES FROM mydb";
+					$result = mysqli_query($link,"SHOW TABLES FROM mydb");
+
+						if (!$result) {
+					echo "DB Error, could not list tables\n";
+					echo 'MySQL Error: ' . mysql_error();
+					exit;
+					}
+
+				while ($row = $result->fetch_row()) {
+					echo "Table: {$row[0]}\n";
+						}
+					
+					
 					//echo 'Connection OK'; 
 					//mysqli_close($link); 
+					//$test2 = "DELETE FROM MyGuests"
+					//mysql_selectdb(my_db, $link);
+					//$table = 'MyGuests';
+					//mysql_query("DELETE FROM MyGuests");
+					//$test = "DROP TABLE MyGuests";
+					// $sql = "TRUNCATE TABLE '$table'";
+					//$q=mysql_query($test, $link);
 					
-					$sql = "CREATE TABLE MyGuests (
+					/*if (!$q) {
+						echo "Database my_db was successfully dropped\n";
+						} else {
+						echo 'Error dropping database: ' . mysql_error() . "\n";
+						}*/
+					
+				/*	$sql = "CREATE TABLE MyApple (
 					id INT(6) UNSIGNED AUTO_INCREMENT PRIMARY KEY, 
 					firstname VARCHAR(30) NOT NULL,
 					lastname VARCHAR(30) NOT NULL,
 					email VARCHAR(50),
-					reg_date TIMESTAMP
+					reg_date TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 					)";
-					$table = 'MyGuests';
-					$sql = "INSERT INTO MyGuests (firstname, lastname, email)
-					VALUES ('John', 'Doe', 'john@example.com')";
-					
-					$sql = "INSERT INTO MyGuests (firstname, lastname, email)
-					VALUES ('bib', 'dylan', 'john@example.com')";
+					//$table = 'MyGuests';
 					
 					if ($link->query($sql) === TRUE) {
-    echo "New record created successfully";
+    echo "Table MyGuests created successfully";
 } else {
-    echo "Error: " . $sql . "<br>" . $link->error;
+    echo "Error creating table: " . $link->error;
 }
-				$dance = "SELECT id, firstname, lastname FROM MyGuests";
+					$sql = "INSERT INTO MyApple (firstname, lastname, email, reg_date)
+					VALUES ('John', 'Doe', 'john@example.com', now())";
+					
+					//$sql = "INSERT INTO MyGuests (firstname, lastname, email)
+					//VALUES ('bib', 'dylan', 'john@example.com')";
+					
+					if ($link->query($sql) === TRUE) {
+						echo "New record created successfully"."<br>";
+						} else {
+						echo "Error: " . $sql . "<br>" . $link->error;
+							}
+				//$dance = "SELECT id, firstname, lastname, email, reg_date FROM MyGuests";
+				$dance = "SELECT * FROM MyApple";
 				$result = $link->query($dance);
 
 			if ($result->num_rows > 0) {
     // output data of each row
     while($row = $result->fetch_assoc()) {
-        echo "id: " . $row["id"]. " - Name: " . $row["firstname"]. " " . $row["lastname"]. "<br>";
+        echo "id: " . $row["id"]. " - Name: " . $row["firstname"]. " " . $row["lastname"]. " " . $row["email"]. " " . $row["reg_date"]."<br>";
     }
 } else {
     echo "0 results";
 }
-$link->close();
+
 					
+*/
 
 
-/*if ($link->query($sql) === TRUE) {
-    echo "Table MyGuests created successfully";
-} else {
-    echo "Error creating table: " . $link->error;
-}
 
-$link->close();*/
+$link->close();
 		
 	/*function getServerLoad($windows = false){
     $os=strtolower(PHP_OS);
