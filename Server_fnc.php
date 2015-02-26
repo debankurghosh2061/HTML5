@@ -64,21 +64,18 @@ if ($handle = opendir('.')) { // open the current directory
 						}
 					
 					
-					//echo 'Connection OK'; 
-					//mysqli_close($link); 
-					//$test2 = "DELETE FROM MyGuests"
-					//mysql_selectdb(my_db, $link);
-					//$table = 'MyGuests';
-					//mysql_query("DELETE FROM MyGuests");
-					//$test = "DROP TABLE MyGuests";
-					// $sql = "TRUNCATE TABLE '$table'";
-					//$q=mysql_query($test, $link);
-					
 					/*if (!$q) {
 						echo "Database my_db was successfully dropped\n";
 						} else {
 						echo 'Error dropping database: ' . mysql_error() . "\n";
 						}*/
+						//id INT(6) UNSIGNED AUTO_INCREMENT PRIMARY KEY, 
+						$sql = "CREATE TABLE TestThree (
+						serverload INT(3) NOT NULL,
+						id INT(3) NOT NULL,
+						reg_date TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+						)";
+						
 					
 				/*	$sql = "CREATE TABLE MyApple (
 					id INT(6) UNSIGNED AUTO_INCREMENT PRIMARY KEY, 
@@ -87,15 +84,15 @@ if ($handle = opendir('.')) { // open the current directory
 					email VARCHAR(50),
 					reg_date TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 					)";
-					//$table = 'MyGuests';
+					//$table = 'MyGuests';*/
 					
 					if ($link->query($sql) === TRUE) {
-    echo "Table MyGuests created successfully";
-} else {
-    echo "Error creating table: " . $link->error;
-}
-					$sql = "INSERT INTO MyApple (firstname, lastname, email, reg_date)
-					VALUES ('John', 'Doe', 'john@example.com', now())";
+						echo "Table MyGuests created successfully";
+						} else {
+						echo "Error creating table: " . $link->error;
+						}
+					$sql = "INSERT INTO TestThree (id,serverload,reg_date)
+					VALUES ('1','$temp',now())";
 					
 					//$sql = "INSERT INTO MyGuests (firstname, lastname, email)
 					//VALUES ('bib', 'dylan', 'john@example.com')";
@@ -106,22 +103,17 @@ if ($handle = opendir('.')) { // open the current directory
 						echo "Error: " . $sql . "<br>" . $link->error;
 							}
 				//$dance = "SELECT id, firstname, lastname, email, reg_date FROM MyGuests";
-				$dance = "SELECT * FROM MyApple";
+				$dance = "SELECT * FROM TestThree";
 				$result = $link->query($dance);
 
 			if ($result->num_rows > 0) {
     // output data of each row
     while($row = $result->fetch_assoc()) {
-        echo "id: " . $row["id"]. " - Name: " . $row["firstname"]. " " . $row["lastname"]. " " . $row["email"]. " " . $row["reg_date"]."<br>";
+        echo $row["id"]." - Server Load: " . $row["serverload"]. " - Timestamp: " . $row["reg_date"]."<br>";
     }
 } else {
     echo "0 results";
 }
-
-					
-*/
-
-
 
 $link->close();
 		
