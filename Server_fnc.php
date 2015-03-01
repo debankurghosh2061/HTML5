@@ -54,13 +54,13 @@ if ($handle = opendir('.')) { // open the current directory
 					$result = mysqli_query($link,"SHOW TABLES FROM mydb");
 
 						if (!$result) {
-					echo "DB Error, could not list tables\n";
-					echo 'MySQL Error: ' . mysql_error();
+					//echo "DB Error, could not list tables\n";
+					//echo 'MySQL Error: ' . mysql_error();
 					exit;
 					}
 
 				while ($row = $result->fetch_row()) {
-					echo "Table: {$row[0]}\n";
+					//echo "Table: {$row[0]}\n";
 						}
 					
 					
@@ -70,9 +70,10 @@ if ($handle = opendir('.')) { // open the current directory
 						echo 'Error dropping database: ' . mysql_error() . "\n";
 						}*/
 						//id INT(6) UNSIGNED AUTO_INCREMENT PRIMARY KEY, 
-						$sql = "CREATE TABLE TestThree (
+						$sql = "CREATE TABLE Testfive (
+						id INT(6) UNSIGNED AUTO_INCREMENT PRIMARY KEY, 
 						serverload INT(3) NOT NULL,
-						id INT(3) NOT NULL,
+						server_id INT(3) NOT NULL,
 						reg_date TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 						)";
 						
@@ -87,35 +88,75 @@ if ($handle = opendir('.')) { // open the current directory
 					//$table = 'MyGuests';*/
 					
 					if ($link->query($sql) === TRUE) {
-						echo "Table MyGuests created successfully";
+						//echo "Table MyGuests created successfully";
 						} else {
-						echo "Error creating table: " . $link->error;
+						//echo "Error creating table: " . $link->error;
 						}
-					$sql = "INSERT INTO TestThree (id,serverload,reg_date)
+					$sql = "INSERT INTO Testfive (server_id,serverload,reg_date)
 					VALUES ('1','$temp',now())";
 					
 					//$sql = "INSERT INTO MyGuests (firstname, lastname, email)
 					//VALUES ('bib', 'dylan', 'john@example.com')";
 					
 					if ($link->query($sql) === TRUE) {
-						echo "New record created successfully"."<br>";
+						//echo "New record created successfully"."<br>";
 						} else {
-						echo "Error: " . $sql . "<br>" . $link->error;
+						//echo "Error: " . $sql . "<br>" . $link->error;
 							}
 				//$dance = "SELECT id, firstname, lastname, email, reg_date FROM MyGuests";
-				$dance = "SELECT * FROM TestThree";
+				$dance = "SELECT * FROM Testfive";
 				$result = $link->query($dance);
 
 			if ($result->num_rows > 0) {
     // output data of each row
+	$id_array = array();
+	$serverload_array = array();
+	$serverid_array = array();
     while($row = $result->fetch_assoc()) {
-        echo $row["id"]." - Server Load: " . $row["serverload"]. " - Timestamp: " . $row["reg_date"]."<br>";
-    }
+       // echo "ID: ".$row["id"]." "."Server id: ".$row["server_id"]." - Server Load: " . $row["serverload"]. " - Timestamp: " . $row["reg_date"]."<br>";
+		$id_array[] = $row["id"];
+		$serverload_array[] = $row["serverload"];
+		$serverid_array[] = $row["server_id"];
+		//print_r ($result_array);
+	}
 } else {
-    echo "0 results";
+   // echo "0 results";
+}
+	$id_array= array_reverse($id_array);
+	$serverload_array = array_reverse($serverload_array);
+	$serverid_array = array_reverse($serverid_array);
+	//echo $serverload_array[0];
+	
+	for ($x = 0; $x < sizeof($id_array); $x++) {
+	if($serverload_array[$x] <= 80){
+		if($serverid_array[$x] == 1){
+		//echo server link 
+		$temp2= "http://ec2-52-16-102-79.eu-west-1.compute.amazonaws.com/mixtape.mkv";
+		$temp = "0";
+		$arr = array($temp, $temp2);
+	echo json_encode($arr);
+		} else if($serverid_array[$x] == 2){
+			//echo server link 2
+		}
+		else if($serverid_array[$x] ==3){
+			//echo server link 3
+		}
+	break;
+		} else{
+		//server is too busy
+	}
 }
 
+ // ec2-52-16-102-79.eu-west-1.compute.amazonaws.com
+   //echo "The number is: $x <br>";
+
+	
+
 $link->close();
+		
+		//main server programming 
+
+		
 		
 	/*function getServerLoad($windows = false){
     $os=strtolower(PHP_OS);
@@ -177,10 +218,10 @@ $link->close();
 			}
 		}
     }
-	$temp2=chop($mkv,";");
+	//$temp2=chop($mkv,";");
 	
-	$arr = array($temp, $temp2);
-	echo json_encode($arr);
+	//$arr = array($temp, $temp2);
+	//echo json_encode($arr);
 	
 	//if the video folder is not in the directory then create it
 	if (strpos($folders, substr($videodir, 0, strlen($videodir)-1)) === false) {

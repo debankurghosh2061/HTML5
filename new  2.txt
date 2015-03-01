@@ -2,6 +2,6 @@ VNmW2ECHLG?
 
 next steps:
 
-1. create a proper table with working elements
-2. duplicate EC2 setup 
+1. create a proper table with working elements ---done
+2. duplicate EC2 setup --- done
 3. write if statements based on load and direct video link from appropriate server
