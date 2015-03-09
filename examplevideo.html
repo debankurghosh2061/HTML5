@@ -26,6 +26,23 @@
    function myFunction (){
    $("#test").show();
    }
+	
+	$.ajax({
+      url:"Server_fnc.php",
+	  //dataType: "json",
+      complete: function (response) {
+	  console.log(response);
+	  var par = JSON.parse(response.responseText);
+	  console.log(par[1]);
+          $("#Display").html(par[1]);
+		  document.getElementById("MyEdit").src = par[1];
+		  console.log(par);
+      },
+	
+	});
+	
+	
+	
 	/*function reqListener () {
       console.log(this.responseText);
     }
@@ -45,20 +62,6 @@
     //                                 Don't wait until the request finishes to 
     //                                 continue.
     oReq.send();*/
-
-	$.ajax({
-      url:"Server_fnc.php",
-	  //dataType: "json",
-      complete: function (response) {
-	  console.log(response);
-	  var par = JSON.parse(response.responseText);
-	  console.log(par[1]);
-          $("#Display").html(par[1]);
-		  document.getElementById("MyEdit").src = par[1];
-		  console.log(par);
-      },
-	
-	});
 	
     </script>
 	

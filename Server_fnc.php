@@ -131,7 +131,7 @@ if ($handle = opendir('.')) { // open the current directory
 	if($serverload_array[$x] <= 80){
 		if($serverid_array[$x] == 1){
 		//echo server link 
-		$temp2= "http://ec2-52-16-102-79.eu-west-1.compute.amazonaws.com/mixtape.mkv";
+		$temp2= "http://ec2-52-16-60-114.eu-west-1.compute.amazonaws.com/mixtape.mkv";
 		$temp = "0";
 		$arr = array($temp, $temp2);
 	echo json_encode($arr);
